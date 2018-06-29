@@ -180,3 +180,17 @@ def isCheck(board):
             elif board[klinen+i][kfilen-i] != "":
                 break
     return ischck
+
+def isThisMoveLegal(board,move):
+    piece = move[0]
+    x1 = move[1]
+    x2 = move[2]
+    y1 = move[3]
+    y2 = move[4]
+    board[y1][x1] = ""
+    board[y2][x2] = piece
+    legal = not isCheck(board)
+    if not legal:
+        print("{}{}{} is not legal".format(x2+1,y2+1,piece))
+
+    return legal
