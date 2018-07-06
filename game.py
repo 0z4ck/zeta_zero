@@ -51,9 +51,6 @@ class Game:
         mv = Moves()
         movelist = []
         y = 0
-        if util.isCheck(self.board):
-            print("bestmove {}".format("resign"))
-            return
         for line in self.board:
             x = 0
             for square in line:
@@ -219,7 +216,16 @@ class Game:
                 x += 1
             y += 1
         print(movelist)
-        bm = random.choice(movelist)
         #time.sleep(5)
+        if util.isCheck(self.board):
+            print("executing ismate ...")
+            ismate = util.isMate(copy.deepcopy(self.board),movelist)
+            print("ismate done")
+            if ismate[0]:
+                print("bestmove {}".format("resign"))
+                return
+            else:
+                movelist = ismate[1]
+        bm = random.choice(movelist)
         print("bestmove {}".format(bm))
         #print("bestmove {}".format("resign"))

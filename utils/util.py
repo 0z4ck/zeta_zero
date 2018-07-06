@@ -39,6 +39,15 @@ def rawtousi(p, x1, x2, y1, y2, sente=True):
         usimove = "{}{}{}{}".format(9-x1,sfeny[8-y1],9-x2,sfeny[8-y2]) 
     return usimove
 
+def usitoraw(board,move):
+    sfeny = ["a","b","c","d","e","f","g","h","i"]
+    x1 = int(move[0])-1
+    x2 = int(move[2])-1
+    y1 = sfeny.index(move[1])
+    y2 = sfeny.index(move[3])
+    piece = board[y1][x1]
+    return piece, x1, x2, y1, y2
+    
 def isCheck(board):
     turn = "gote" # temporary
     ischck = False
@@ -194,3 +203,17 @@ def isThisMoveLegal(board,move):
         print("{}{}{} is not legal".format(x2+1,y2+1,piece))
 
     return legal
+
+def isMate(board,move_list):
+    if not isCheck(board):
+        return False,move_list
+    else:
+        legal_ml = []
+        for move in move_list:
+            if isThisMoveLegal(board,usitoraw(board,move)):
+                legal_ml.append(move)
+        if len(legal_ml)==0:
+            return True
+        else:
+            return False, legal_ml
+
