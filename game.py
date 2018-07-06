@@ -54,7 +54,6 @@ class Game:
         for line in self.board:
             x = 0
             for square in line:
-                #print("{}{}".format(x,y))
                 if square=="P":
                     mlist = mv.pawn(x,y)
 
@@ -218,9 +217,7 @@ class Game:
         print(movelist)
         #time.sleep(5)
         if util.isCheck(self.board):
-            print("executing ismate ...")
             ismate = util.isMate(copy.deepcopy(self.board),movelist)
-            print("ismate done")
             if ismate[0]:
                 print("bestmove {}".format("resign"))
                 return
