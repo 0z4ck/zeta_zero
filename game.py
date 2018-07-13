@@ -250,7 +250,7 @@ class Game:
         print(movelist)
         #time.sleep(5)
         if util.isCheck(self.board):
-            ismate = util.isMate(copy.deepcopy(self.board),movelist)
+            ismate = util.isMate(copy.deepcopy(self.board),movelist,self.sente)
             if ismate[0]:
                 print("bestmove {}".format("resign"))
                 return
