@@ -30,21 +30,43 @@ class Game:
                 pass
             elif move=="moves":
                 pass
+            else:
+                c += 1 
+
+        self.sente = c%2==0
+
+        c = 0
+        for move in usimoves:
+            if len(move)<4:
+                pass
+            elif move=="moves":
+                pass
             elif move[1]=="*":
-                if c%2==0:
+                if (c%2==0 and self.sente) or (c%2!=0 and not self.sente):
                     piece = move[0]
                 else:
                     piece = move[0].lower()
-                self.board[sfd[move[3]]][int(move[2])-1] = piece
+                if self.sente:
+                    self.board[sfd[move[3]]][int(move[2])-1] = piece
+                else:
+                    self.board[8-sfd[move[3]]][9-int(move[2])] = piece
                 c += 1 
             else:
-                piece = self.board[sfd[move[1]]][int(move[0])-1]
-                if move[-1]=="+":
-                    piece = "+"+piece
-                self.board[sfd[move[3]]][int(move[2])-1] = piece
-                self.board[sfd[move[1]]][int(move[0])-1] = ""
+                if self.sente:
+                    piece = self.board[sfd[move[1]]][int(move[0])-1]
+                    if move[-1]=="+":
+                        piece = "+"+piece
+                    self.board[sfd[move[3]]][int(move[2])-1] = piece
+                    self.board[sfd[move[1]]][int(move[0])-1] = ""
+                else:
+                    piece = self.board[8-sfd[move[1]]][9-int(move[0])]
+                    if move[-1]=="+":
+                        piece = "+"+piece
+                    self.board[8-sfd[move[3]]][9-int(move[2])] = piece
+                    self.board[8-sfd[move[1]]][9-int(move[0])] = ""
+       
                 c += 1 
-        self.sente = c%2==0
+
         util.prettifier(self.board)
 
     def go(self):
@@ -61,6 +83,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("pawn at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -79,6 +102,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("lance at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -89,6 +113,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("knight at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -99,6 +124,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("silver at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -109,6 +135,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("gold at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -119,6 +146,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("king at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -138,6 +166,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("rook at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -158,6 +187,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("bishop at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -168,6 +198,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("narikin at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -188,6 +219,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("dragon at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
@@ -209,6 +241,7 @@ class Game:
                     for x2, y2 in mlist2:
                         if util.isThisMoveLegal(copy.deepcopy(self.board),(square.upper(),x,x2,y,y2)):
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
+                            #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
                             print(usimove)
                             print("horse at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
