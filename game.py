@@ -13,6 +13,7 @@ class Game:
 
     def loadPosition(self, usimoves):
         
+        self.komadai = []
         self.board = [ ["l","n","s","g","k","g","s","n","l"],
                       ["","b","","","","","","r",""],
                       ["p","p","p","p","p","p","p","p","p"],
@@ -44,6 +45,7 @@ class Game:
             elif move[1]=="*":
                 if (c%2==0 and self.sente) or (c%2!=0 and not self.sente):
                     piece = move[0]
+                    self.komadai.remove(piece.lower())
                 else:
                     piece = move[0].lower()
                 if self.sente:
@@ -56,12 +58,16 @@ class Game:
                     piece = self.board[sfd[move[1]]][int(move[0])-1]
                     if move[-1]=="+":
                         piece = "+"+piece
+                    if self.board[sfd[move[3]]][int(move[2])-1].islower():
+                        self.komadai.append(self.board[sfd[move[3]]][int(move[2])-1][-1].lower())
                     self.board[sfd[move[3]]][int(move[2])-1] = piece
                     self.board[sfd[move[1]]][int(move[0])-1] = ""
                 else:
                     piece = self.board[8-sfd[move[1]]][9-int(move[0])]
                     if move[-1]=="+":
                         piece = "+"+piece
+                    if self.board[8-sfd[move[3]]][9-int(move[2])].islower():
+                        self.komadai.append(self.board[8-sfd[move[3]]][9-int(move[2])][-1].lower())
                     self.board[8-sfd[move[3]]][9-int(move[2])] = piece
                     self.board[8-sfd[move[1]]][9-int(move[0])] = ""
        
@@ -247,9 +253,21 @@ class Game:
                             print("horse at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 x += 1
             y += 1
+        sfeny = ["a","b","c","d","e","f","g","h","i"]
+        for koma in self.komadai:
+            for tempy in range(9):
+                for tempx in range(9):
+                    if self.board[tempy][tempx]=="":
+                        if self.sente:
+                            usimove = "{}*{}{}".format(koma.upper(),tempx+1,sfeny[tempy])
+                        else:
+                            usimove = "{}*{}{}".format(koma.upper(),9-tempx,sfeny[8-tempy])
+                        if util.isThisDropLegal(copy.deepcopy(self.board),(koma.upper(),tempx,tempy)):
+                            movelist.append(usimove)
+
         print(movelist)
         #time.sleep(5)
-        if util.isCheck(self.board):
+        if util.isCheck(self.board,"opponent"):
             ismate = util.isMate(copy.deepcopy(self.board),movelist,self.sente)
             if ismate[0]:
                 print("bestmove {}".format("resign"))
