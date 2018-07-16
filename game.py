@@ -16,6 +16,7 @@ class Game:
 
     def loadPosition(self, usimoves):
         
+        self.okomadai = []
         self.komadai = []
         self.board = [ ["l","n","s","g","k","g","s","n","l"],
                       ["","b","","","","","","r",""],
@@ -51,6 +52,7 @@ class Game:
                     self.komadai.remove(piece.lower())
                 else:
                     piece = move[0].lower()
+                    self.okomadai.remove(piece.lower())
                 if self.sente:
                     self.board[self.SFD[move[3]]][int(move[2])-1] = piece
                 else:
@@ -63,6 +65,8 @@ class Game:
                         piece = "+"+piece
                     if self.board[self.SFD[move[3]]][int(move[2])-1].islower():
                         self.komadai.append(self.board[self.SFD[move[3]]][int(move[2])-1][-1].lower())
+                    if self.board[self.SFD[move[3]]][int(move[2])-1].isupper():
+                        self.okomadai.append(self.board[self.SFD[move[3]]][int(move[2])-1][-1].lower())
                     self.board[self.SFD[move[3]]][int(move[2])-1] = piece
                     self.board[self.SFD[move[1]]][int(move[0])-1] = ""
                 else:
@@ -71,6 +75,8 @@ class Game:
                         piece = "+"+piece
                     if self.board[8-self.SFD[move[3]]][9-int(move[2])].islower():
                         self.komadai.append(self.board[8-self.SFD[move[3]]][9-int(move[2])][-1].lower())
+                    if self.board[8-self.SFD[move[3]]][9-int(move[2])].isupper():
+                        self.okomadai.append(self.board[8-self.SFD[move[3]]][9-int(move[2])][-1].lower())
                     self.board[8-self.SFD[move[3]]][9-int(move[2])] = piece
                     self.board[8-self.SFD[move[1]]][9-int(move[0])] = ""
        

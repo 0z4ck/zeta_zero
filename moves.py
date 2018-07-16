@@ -201,25 +201,25 @@ class Moves:
 
             if dragon:
                 im = [(x+1,y+1),(x-1,y-1),(x+1,y-1),(x-1,y+1)]
-                if x=8:
+                if x==8:
                     for i in ((x+1,y+1),(x+1,y-1)):
                         try:
                             im.remove(i)
                         except:
                             pass
-                if y=8:
+                if y==8:
                     for i in ((x+1,y+1),(x-1,y+1)):
                         try:
                             im.remove(i)
                         except:
                             pass
-                if x=0:
+                if x==0:
                     for i in ((x-1,y-1),(x-1,y+1)):
                         try:
                             im.remove(i)
                         except:
                             pass
-                if y=0:
+                if y==0:
                     for i in (((x-1,y-1)),(x+1,y-1)):
                         try:
                             im.remove(i)
@@ -247,26 +247,26 @@ class Moves:
                 move_list.append(movepart)
 
             if horse:
-                im = ((x,y+1),(x,y-1),(x+1,y),(x-1,y))
-                if x=8:
+                im = [(x,y+1),(x,y-1),(x+1,y),(x-1,y)]
+                if x==8:
                     for i in ((x+1,y),):
                         try:
                             im.remove(i)
                         except:
                             pass
-                if y=8:
+                if y==8:
                     for i in ((x,y+1),):
                         try:
                             im.remove(i)
                         except:
                             pass
-                if x=0:
+                if x==0:
                     for i in ((x-1,y),):
                         try:
                             im.remove(i)
                         except:
                             pass
-                if y=0:
+                if y==0:
                     for i in (((x,y-1)),):
                         try:
                             im.remove(i)
