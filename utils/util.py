@@ -44,14 +44,14 @@ def usitoraw(board,move, sente=True):
     sfeny = ["a","b","c","d","e","f","g","h","i"]
     if sente:
         if not move[0].isdecimal():
-            return move[0],None,int(move[1])-1,None,sfeny.index(move[2])
+            return move[0],None,int(move[2])-1,None,sfeny.index(move[3])
         x1 = int(move[0])-1
         x2 = int(move[2])-1
         y1 = sfeny.index(move[1])
         y2 = sfeny.index(move[3])
     else:
         if not move[0].isdecimal():
-            return move[0],None,9-int(move[1]),None,8-sfeny.index(move[2])
+            return move[0],None,9-int(move[2]),None,8-sfeny.index(move[3])
         x1 = 9-int(move[0])
         x2 = 9-int(move[2])
         y1 = 8-sfeny.index(move[1])
@@ -388,12 +388,12 @@ def isThisMoveLegal(board,move):
     return legal
 
 def isMate(board,move_list,sente):
-    if not isCheck(board,"opponent"):
+    if not isCheck(deepcopy(board),"opponent"):
         return False,move_list
     else:
         legal_ml = []
         for move in move_list:
-            if isThisMoveLegal(board,usitoraw(board,move,sente)):
+            if isThisMoveLegal(deepcopy(board),usitoraw(board,move,sente)):
                 legal_ml.append(move)
         if len(legal_ml)==0:
             return True, None
