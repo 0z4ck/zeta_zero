@@ -34,7 +34,7 @@ def prettifier(board):
 def rawtousi(p, x1, x2, y1, y2, sente=True):
     sfeny = ["a","b","c","d","e","f","g","h","i"]
     if sente:
-        #print("p:{}, x1:{}, x2:{}, y1]{}, y2:{}".format(p, x1, x2, y1, y2))
+        ##print("p:{}, x1:{}, x2:{}, y1]{}, y2:{}".format(p, x1, x2, y1, y2))
         usimove = "{}{}{}{}".format(x1+1,sfeny[y1],x2+1,sfeny[y2])
     else:
         usimove = "{}{}{}{}".format(9-x1,sfeny[8-y1],9-x2,sfeny[8-y2]) 
@@ -64,18 +64,18 @@ def isDropable(board):
     #check nifu
     for filen in range(9):
         if [line[filen] for line in board].count("P")>1:
-            print("nifu for sente")
+            #print("nifu for sente")
             legal = False
     #check furthest pawn, lance, penultimate knight
     if "P" in board[0]:
-        print("furthest pawn for sente")
+        #print("furthest pawn for sente")
         legal = False
     if "L" in board[0]:
-        print("furthest lance for sente")
+        #print("furthest lance for sente")
         legal = False
     for line in board[:2]:
         if "N" in line:
-            print("penultimate knight for sente")
+            #print("penultimate knight for sente")
             legal = False
     return legal
 
@@ -84,8 +84,8 @@ def isCheck(board,turn):
     ischck = False
     if turn == "opponent":
         for linen in range(9):
-             print(board[linen])
-             print("searching \"K\"")
+             #print(board[linen])
+             #print("searching \"K\"")
              if "K" in board[linen]:
                  kfilen = board[linen].index("K")
                  klinen = linen
@@ -95,92 +95,92 @@ def isCheck(board,turn):
             if kfilen == 8:
                 if board[klinen-2][kfilen-1] == "n":
                     ischck = True
-                    print("knight is checking to sente")
+                    #print("knight is checking to sente")
             elif kfilen == 0:
                 if board[klinen-2][kfilen+1] == "n":
                     ischck = True
-                    print("knight is checking to sente")
+                    #print("knight is checking to sente")
             else:
                 if board[klinen-2][kfilen-1] == "n" or board[klinen-2][kfilen+1] == "n":
                     ischck = True
-                    print("knight is checking to sente")
+                    #print("knight is checking to sente")
         if klinen != 0 :
             #check king's front check
             if board[klinen-1][kfilen] in ["p","l","s","g","k","r","+p","+l","+n","+s","+b","+r"]:
                 ischck = True
-                print("{} is checking to sente from the front".format(board[klinen-1][kfilen]))
+                #print("{} is checking to sente from the front".format(board[klinen-1][kfilen]))
             if kfilen == 8:
                 if board[klinen-1][kfilen-1] in ["s","g","k","b","+p","+l","+n","+s","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the front right".format(board[klinen-1][kfilen-1]))
+                    #print("{} is checking to sente from the front right".format(board[klinen-1][kfilen-1]))
             elif kfilen == 0:
                 if board[klinen-1][kfilen+1] in ["s","g","k","b","+p","+l","+n","+s","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the front left".format(board[klinen-1][kfilen+1]))
+                    #print("{} is checking to sente from the front left".format(board[klinen-1][kfilen+1]))
             else:
                 if board[klinen-1][kfilen-1] in ["s","g","k","b","+p","+l","+n","+s","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the front right".format(board[klinen-1][kfilen-1]))
+                    #print("{} is checking to sente from the front right".format(board[klinen-1][kfilen-1]))
                 if board[klinen-1][kfilen+1] in ["s","g","k","b","+p","+l","+n","+s","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the front left".format(board[klinen-1][kfilen+1]))
+                    #print("{} is checking to sente from the front left".format(board[klinen-1][kfilen+1]))
 
         if kfilen != 0:
             #check king's right side
             if board[klinen][kfilen-1] in ["g","k","r","+p","+l","+n","+s","+b","+r"]:
                 ischck = True
-                print("{} is checking to sente from the right".format(board[klinen][kfilen-1]))
+                #print("{} is checking to sente from the right".format(board[klinen][kfilen-1]))
         if kfilen != 8:
             #check king's left side
             if board[klinen][kfilen+1] in ["g","k","r","+p","+l","+n","+s","+b","+r"]:
                 ischck = True
-                print("{} is checking to sente from the left".format(board[klinen][kfilen+1]))
+                #print("{} is checking to sente from the left".format(board[klinen][kfilen+1]))
         if klinen != 8:
             #check king's back
             if board[klinen+1][kfilen] in ["g","k","r","+p","+l","+n","+s","+b","+r"]:
                 ischck = True
-                print("{} is checking to sente from the back".format(board[klinen+1][kfilen]))
+                #print("{} is checking to sente from the back".format(board[klinen+1][kfilen]))
             if kfilen == 8:
                 if board[klinen+1][kfilen-1] in ["s","k","b","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the back right".format(board[klinen+1][kfilen-1]))
+                    #print("{} is checking to sente from the back right".format(board[klinen+1][kfilen-1]))
             elif kfilen == 0:
                 if board[klinen+1][kfilen+1] in ["s","k","b","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the back left".format(board[klinen+1][kfilen+1]))
+                    #print("{} is checking to sente from the back left".format(board[klinen+1][kfilen+1]))
             else:
                 if board[klinen+1][kfilen-1] in ["s","k","b","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the back right".format(board[klinen+1][kfilen-1]))
+                    #print("{} is checking to sente from the back right".format(board[klinen+1][kfilen-1]))
                 if board[klinen+1][kfilen+1] in ["s","k","b","+b","+r"]:
                     ischck = True
-                    print("{} is checking to sente from the back left".format(board[klinen+1][kfilen+1]))
+                    #print("{} is checking to sente from the back left".format(board[klinen+1][kfilen+1]))
         #check rook's check
         for piece in reversed(board[klinen][:kfilen]):
             if piece == "r" or piece == "+r":
                 ischck = True
-                print("rook is checking from the right")
+                #print("rook is checking from the right")
                 break
             elif piece != "":
                 break
         for piece in board[klinen][kfilen+1:]:
             if piece == "r" or piece == "+r":
                 ischck = True
-                print("rook is checking from the left")
+                #print("rook is checking from the left")
                 break
             elif piece != "":
                 break
         for piece in reversed([line[kfilen] for line in board][:klinen]):
             if piece == "r" or piece == "+r" or piece == "l":
                 ischck = True
-                print("rook or lance is checking from the front")
+                #print("rook or lance is checking from the front")
                 break
             elif piece != "":
                 break
         for piece in [line[kfilen] for line in board][klinen+1:]:
             if piece == "r" or piece == "+r":
                 ischck = True
-                print("rook is checking from the back")
+                #print("rook is checking from the back")
                 break
             elif piece != "":
                 break
@@ -190,7 +190,7 @@ def isCheck(board,turn):
                 break
             if board[klinen+i][kfilen+i] == "b" or board[klinen+i][kfilen+i] == "+b":
                 ischck = True
-                print("bishop is checking from the back left")
+                #print("bishop is checking from the back left")
                 break
             elif board[klinen+i][kfilen+i] != "":
                 break
@@ -199,7 +199,7 @@ def isCheck(board,turn):
                 break
             if board[klinen-i][kfilen-i] == "b" or board[klinen-i][kfilen-i] == "+b":
                 ischck = True
-                print("bishop is checking from the front right")
+                #print("bishop is checking from the front right")
                 break
             elif board[klinen-i][kfilen-i] != "":
                 break
@@ -208,7 +208,7 @@ def isCheck(board,turn):
                 break
             if board[klinen-i][kfilen+i] == "b" or board[klinen-i][kfilen+i] == "+b":
                 ischck = True
-                print("bishop is checking from the front left")
+                #print("bishop is checking from the front left")
                 break
             elif board[klinen-i][kfilen+i] != "":
                 break
@@ -217,7 +217,7 @@ def isCheck(board,turn):
                 break
             if board[klinen+i][kfilen-i] == "b" or board[klinen+i][kfilen-i] == "+b":
                 ischck = True
-                print("bishop is checking from the back right")
+                #print("bishop is checking from the back right")
                 break
             elif board[klinen+i][kfilen-i] != "":
                 break
@@ -232,92 +232,92 @@ def isCheck(board,turn):
             if kfilen == 8:
                 if board[klinen+2][kfilen-1] == "N":
                     ischck = True
-                    print("knight is checking to gote")
+                    #print("knight is checking to gote")
             elif kfilen == 0:
                 if board[klinen+2][kfilen+1] == "N":
                     ischck = True
-                    print("knight is checking to gote")
+                    #print("knight is checking to gote")
             else:
                 if board[klinen+2][kfilen-1] == "N" or board[klinen+2][kfilen+1] == "N":
                     ischck = True
-                    print("knight is checking to gote")
+                    #print("knight is checking to gote")
         if klinen != 8 :
             #check king's front check
             if board[klinen+1][kfilen] in ["P","L","S","G","K","R","+P","+L","+N","+S","+B","+R"]:
                 ischck = True
-                print("{} is checking to gote from the front".format(board[klinen+1][kfilen]))
+                #print("{} is checking to gote from the front".format(board[klinen+1][kfilen]))
             if kfilen == 8:
                 if board[klinen+1][kfilen-1] in ["S","G","K","B","+P","+L","+N","+S","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the front right".format(board[klinen+1][kfilen-1]))
+                    #print("{} is checking to gote from the front right".format(board[klinen+1][kfilen-1]))
             elif kfilen == 0:
                 if board[klinen+1][kfilen+1] in ["S","G","K","B","+P","+L","+N","+S","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the front left".format(board[klinen+1][kfilen+1]))
+                    #print("{} is checking to gote from the front left".format(board[klinen+1][kfilen+1]))
             else:
                 if board[klinen+1][kfilen-1] in ["S","G","K","B","+P","+L","+N","+S","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the front right".format(board[klinen+1][kfilen-1]))
+                    #print("{} is checking to gote from the front right".format(board[klinen+1][kfilen-1]))
                 if board[klinen+1][kfilen+1] in ["S","G","K","B","+P","+L","+N","+S","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the front left".format(board[klinen+1][kfilen+1]))
+                    #print("{} is checking to gote from the front left".format(board[klinen+1][kfilen+1]))
 
         if kfilen != 0:
             #check king's right side
             if board[klinen][kfilen-1] in ["G","K","R","+P","+L","+N","+S","+B","+R"]:
                 ischck = True
-                print("{} is checking to gote from the right".format(board[klinen][kfilen-1]))
+                #print("{} is checking to gote from the right".format(board[klinen][kfilen-1]))
         if kfilen != 8:
             #check king's left side
             if board[klinen][kfilen+1] in ["G","K","R","+P","+L","+N","+S","+B","+R"]:
                 ischck = True
-                print("{} is checking to gote from the left".format(board[klinen][kfilen+1]))
+                #print("{} is checking to gote from the left".format(board[klinen][kfilen+1]))
         if klinen != 0:
             #check king's back
             if board[klinen-1][kfilen] in ["G","K","R","+P","+L","+N","+S","+B","+R"]:
                 ischck = True
-                print("{} is checking to gote from the back".format(board[klinen-1][kfilen]))
+                #print("{} is checking to gote from the back".format(board[klinen-1][kfilen]))
             if kfilen == 8:
                 if board[klinen-1][kfilen-1] in ["S","K","B","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the back right".format(board[klinen-1][kfilen-1]))
+                    #print("{} is checking to gote from the back right".format(board[klinen-1][kfilen-1]))
             elif kfilen == 0:
                 if board[klinen-1][kfilen+1] in ["S","K","B","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the back left".format(board[klinen-1][kfilen+1]))
+                    #print("{} is checking to gote from the back left".format(board[klinen-1][kfilen+1]))
             else:
                 if board[klinen-1][kfilen-1] in ["S","K","B","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the back right".format(board[klinen-1][kfilen-1]))
+                    #print("{} is checking to gote from the back right".format(board[klinen-1][kfilen-1]))
                 if board[klinen-1][kfilen+1] in ["S","K","B","+B","+R"]:
                     ischck = True
-                    print("{} is checking to gote from the back left".format(board[klinen-1][kfilen+1]))
+                    #print("{} is checking to gote from the back left".format(board[klinen-1][kfilen+1]))
         #check rook's check
         for piece in reversed(board[klinen][:kfilen]):
             if piece == "R" or piece == "+R":
                 ischck = True
-                print("rook is checking from the right")
+                #print("rook is checking from the right")
                 break
             elif piece != "":
                 break
         for piece in board[klinen][kfilen+1:]:
             if piece == "R" or piece == "+R":
                 ischck = True
-                print("rook is checking from the left")
+                #print("rook is checking from the left")
                 break
             elif piece != "":
                 break
         for piece in reversed([line[kfilen] for line in board][:klinen]):
             if piece == "R" or piece == "+R":
                 ischck = True
-                print("rook is checking from the front")
+                #print("rook is checking from the front")
                 break
             elif piece != "":
                 break
         for piece in [line[kfilen] for line in board][klinen+1:]:
             if piece == "R" or piece == "+R":
                 ischck = True
-                print("rook is checking from the back")
+                #print("rook is checking from the back")
                 break
             elif piece != "":
                 break
@@ -327,7 +327,7 @@ def isCheck(board,turn):
                 break
             if board[klinen+i][kfilen+i] == "B" or board[klinen+i][kfilen+i] == "+B":
                 ischck = True
-                print("bishop is checking from the back left")
+                #print("bishop is checking from the back left")
                 break
             elif board[klinen+i][kfilen+i] != "":
                 break
@@ -336,7 +336,7 @@ def isCheck(board,turn):
                 break
             if board[klinen-i][kfilen-i] == "B" or board[klinen-i][kfilen-i] == "+B":
                 ischck = True
-                print("bishop is checking from the front right")
+                #print("bishop is checking from the front right")
                 break
             elif board[klinen-i][kfilen-i] != "":
                 break
@@ -345,7 +345,7 @@ def isCheck(board,turn):
                 break
             if board[klinen-i][kfilen+i] == "B" or board[klinen-i][kfilen+i] == "+B":
                 ischck = True
-                print("bishop is checking from the front left")
+                #print("bishop is checking from the front left")
                 break
             elif board[klinen-i][kfilen+i] != "":
                 break
@@ -354,7 +354,7 @@ def isCheck(board,turn):
                 break
             if board[klinen+i][kfilen-i] == "B" or board[klinen+i][kfilen-i] == "+B":
                 ischck = True
-                print("bishop is checking from the back right")
+                #print("bishop is checking from the back right")
                 break
             elif board[klinen+i][kfilen-i] != "":
                 break
@@ -368,7 +368,8 @@ def isThisDropLegal(board,move):
     board[y2][x2] = piece
     legal = isDropable(board)
     if not legal:
-        print("{}{}{} is not legal".format(x2+1,y2+1,piece))
+        #print("{}{}{} is not legal".format(x2+1,y2+1,piece))
+        pass
 
     return legal
 
@@ -383,7 +384,8 @@ def isThisMoveLegal(board,move):
     board[y2][x2] = piece
     legal = not isCheck(board,"opponent")
     if not legal:
-        print("{}{}{} is not legal".format(x2+1,y2+1,piece))
+        #print("{}{}{} is not legal".format(x2+1,y2+1,piece))
+        pass
 
     return legal
 

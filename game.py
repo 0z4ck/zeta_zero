@@ -3,8 +3,11 @@ import random
 from utils import util
 import time
 import copy
+from utils import evaluation
 
 class Game:
+
+    SFD = {'a': 0, 'c': 2, 'b': 1, 'e': 4, 'd': 3, 'g': 6, 'f': 5, 'i': 8, 'h': 7}
 
     def __init__(self,board=None):
         if board:
@@ -24,7 +27,7 @@ class Game:
                       ["","R","","","","","","B",""],
                       ["L","N","S","G","K","G","S","N","L"] ]
         c = 0
-        sfd = {'a': 0, 'c': 2, 'b': 1, 'e': 4, 'd': 3, 'g': 6, 'f': 5, 'i': 8, 'h': 7}
+        self.SFD = {'a': 0, 'c': 2, 'b': 1, 'e': 4, 'd': 3, 'g': 6, 'f': 5, 'i': 8, 'h': 7}
 
         for move in usimoves:
             if len(move)<4:
@@ -49,27 +52,27 @@ class Game:
                 else:
                     piece = move[0].lower()
                 if self.sente:
-                    self.board[sfd[move[3]]][int(move[2])-1] = piece
+                    self.board[self.SFD[move[3]]][int(move[2])-1] = piece
                 else:
-                    self.board[8-sfd[move[3]]][9-int(move[2])] = piece
+                    self.board[8-self.SFD[move[3]]][9-int(move[2])] = piece
                 c += 1 
             else:
                 if self.sente:
-                    piece = self.board[sfd[move[1]]][int(move[0])-1]
+                    piece = self.board[self.SFD[move[1]]][int(move[0])-1]
                     if move[-1]=="+":
                         piece = "+"+piece
-                    if self.board[sfd[move[3]]][int(move[2])-1].islower():
-                        self.komadai.append(self.board[sfd[move[3]]][int(move[2])-1][-1].lower())
-                    self.board[sfd[move[3]]][int(move[2])-1] = piece
-                    self.board[sfd[move[1]]][int(move[0])-1] = ""
+                    if self.board[self.SFD[move[3]]][int(move[2])-1].islower():
+                        self.komadai.append(self.board[self.SFD[move[3]]][int(move[2])-1][-1].lower())
+                    self.board[self.SFD[move[3]]][int(move[2])-1] = piece
+                    self.board[self.SFD[move[1]]][int(move[0])-1] = ""
                 else:
-                    piece = self.board[8-sfd[move[1]]][9-int(move[0])]
+                    piece = self.board[8-self.SFD[move[1]]][9-int(move[0])]
                     if move[-1]=="+":
                         piece = "+"+piece
-                    if self.board[8-sfd[move[3]]][9-int(move[2])].islower():
-                        self.komadai.append(self.board[8-sfd[move[3]]][9-int(move[2])][-1].lower())
-                    self.board[8-sfd[move[3]]][9-int(move[2])] = piece
-                    self.board[8-sfd[move[1]]][9-int(move[0])] = ""
+                    if self.board[8-self.SFD[move[3]]][9-int(move[2])].islower():
+                        self.komadai.append(self.board[8-self.SFD[move[3]]][9-int(move[2])][-1].lower())
+                    self.board[8-self.SFD[move[3]]][9-int(move[2])] = piece
+                    self.board[8-self.SFD[move[1]]][9-int(move[0])] = ""
        
                 c += 1 
 
@@ -91,8 +94,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("pawn at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("pawn at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="L":
                     mlist = mv.lance(x,y)
                     mlist2 = []
@@ -110,8 +113,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("lance at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("lance at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="N":
                     mlist = mv.knight(x,y)
 
@@ -121,8 +124,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("knight at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("knight at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="S":
                     mlist = mv.silver(x,y)
 
@@ -132,8 +135,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("silver at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("silver at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="G":
                     mlist = mv.gold(x,y)
 
@@ -143,8 +146,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("gold at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("gold at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="K":
                     mlist = mv.king(x,y)
                     mlist2 = filter(lambda xy: not self.board[xy[1]][xy[0]].isupper(),mlist)
@@ -154,8 +157,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("king at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("king at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="R":
                     mlist = mv.rook(x,y)
                     mlist2 = []
@@ -174,8 +177,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("rook at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("rook at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="B":
                     mlist = mv.bishop(x,y)
                     mlist2 = []
@@ -195,8 +198,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("bishop at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("bishop at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="+P" or square=="+L" or square=="+N" or square=="+S":
                     mlist = mv.gold(x,y)
 
@@ -206,8 +209,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("narikin at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("narikin at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="+R":
                     mlist = mv.rook(x,y,dragon=True)
                     mlist2 = []
@@ -227,8 +230,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("dragon at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("dragon at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 elif square=="+B":
                     mlist = mv.bishop(x,y,horse=True)
                     mlist2 = []
@@ -249,8 +252,8 @@ class Game:
                             usimove = util.rawtousi(square.lower(),x,x2,y,y2,self.sente)
                             #usimove = util.rawtousi(square.lower(),x,x2,y,y2)
                             movelist.append(usimove)
-                            print(usimove)
-                            print("horse at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
+                            #print(usimove)
+                            #print("horse at {}{} can move to {}{}".format(x+1,y+1,x2+1,y2+1))
                 x += 1
             y += 1
         sfeny = ["a","b","c","d","e","f","g","h","i"]
@@ -274,6 +277,41 @@ class Game:
                 return
             else:
                 movelist = ismate[1]
-        bm = random.choice(movelist)
+
+        scoredmovelist=[]
+        for usimove in movelist:
+            calcboard = copy.deepcopy(self.board)
+            calckmd = copy.deepcopy(self.komadai)
+            if usimove[1]=="*":
+                piece = usimove[0]
+                calckmd.remove(piece.lower())
+                if self.sente:
+                    calcboard[self.SFD[usimove[3]]][int(usimove[2])-1] = piece
+                else:
+                    calcboard[8-self.SFD[usimove[3]]][9-int(usimove[2])] = piece
+            else:
+                if self.sente:
+                    piece = calcboard[self.SFD[usimove[1]]][int(usimove[0])-1]
+                    if usimove[-1]=="+":
+                        piece = "+"+piece
+                    if calcboard[self.SFD[usimove[3]]][int(usimove[2])-1].islower():
+                        calckmd.append(calcboard[self.SFD[usimove[3]]][int(usimove[2])-1][-1].lower())
+                    calcboard[self.SFD[usimove[3]]][int(usimove[2])-1] = piece
+                    calcboard[self.SFD[usimove[1]]][int(usimove[0])-1] = ""
+                else:
+                    piece = calcboard[8-self.SFD[usimove[1]]][9-int(usimove[0])]
+                    if usimove[-1]=="+":
+                        piece = "+"+piece
+                    if calcboard[8-self.SFD[usimove[3]]][9-int(usimove[2])].islower():
+                        calckmd.append(calcboard[8-self.SFD[usimove[3]]][9-int(usimove[2])][-1].lower())
+                    calcboard[8-self.SFD[usimove[3]]][9-int(usimove[2])] = piece
+                    calcboard[8-self.SFD[usimove[1]]][9-int(usimove[0])] = ""
+            #okomadai = evaluation.getokomadai(calcboard,calckmd) 
+            okomadai = []
+            score = evaluation.evaluation(calcboard,calckmd,okomadai,turn="opponent")
+            scoredmovelist.append((usimove,score))
+        bm = max(scoredmovelist,key=lambda x:x[1])[0]
+
+
         print("bestmove {}".format(bm))
         #print("bestmove {}".format("resign"))
