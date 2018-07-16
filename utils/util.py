@@ -43,11 +43,15 @@ def rawtousi(p, x1, x2, y1, y2, sente=True):
 def usitoraw(board,move, sente=True):
     sfeny = ["a","b","c","d","e","f","g","h","i"]
     if sente:
+        if not move[0].isdecimal():
+            return move[0],None,int(move[1])-1,None,sfeny.index(move[2])
         x1 = int(move[0])-1
         x2 = int(move[2])-1
         y1 = sfeny.index(move[1])
         y2 = sfeny.index(move[3])
     else:
+        if not move[0].isdecimal():
+            return move[0],None,9-int(move[1]),None,8-sfeny.index(move[2])
         x1 = 9-int(move[0])
         x2 = 9-int(move[2])
         y1 = 8-sfeny.index(move[1])
@@ -79,7 +83,9 @@ def isCheck(board,turn):
     #turn = "opponent" # temporary
     ischck = False
     if turn == "opponent":
-        for linen in range(10):
+        for linen in range(9):
+             print(board[linen])
+             print("searching \"K\"")
              if "K" in board[linen]:
                  kfilen = board[linen].index("K")
                  klinen = linen
