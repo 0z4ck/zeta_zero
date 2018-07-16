@@ -1,5 +1,5 @@
 
-def evaluation(board,mykomadai,okomadai,turn=""):
+def evaluation(board,mykomadai,okomadai,mv,turn=""):
     pawn = 100
     lance = 300
     knight = 300
@@ -9,7 +9,9 @@ def evaluation(board,mykomadai,okomadai,turn=""):
     bishop = 700
     king = 9999
     score_cp = 0;
+    y = 0;
     for bline in board:
+        x = 0;
         for square in bline:
             if square=="K":
                 score_cp += king
@@ -37,6 +39,42 @@ def evaluation(board,mykomadai,okomadai,turn=""):
                 score_cp -= gold
             if square=="R":
                 score_cp += rook
+                c = 0
+                for ix in reversed(range(x)):
+                    print("y: {}, len(board): {}, ix: {}, x: {}".format(y,len(board),ix,x))
+                    if board[y][ix]=="":
+                        c += 1
+                    elif board[y][ix].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                for ix in range(x+1,9):
+                    if board[y][ix]=="":
+                        c += 1
+                    elif board[y][ix].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                for iy in reversed(range(y)):
+                    if board[iy][x]=="":
+                        c += 1
+                    elif board[iy][x].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                for iy in range(y+1,9):
+                    if board[iy][x]=="":
+                        c += 1
+                    elif board[iy][x].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                score_cp += c*9
+
             if square=="r":
                 score_cp -= rook
             if square=="B":
@@ -45,12 +83,49 @@ def evaluation(board,mykomadai,okomadai,turn=""):
                 score_cp -= bishop
             if square=="+R":
                 score_cp += rook + silver
+                c = 0
+                for ix in reversed(range(x)):
+                    if board[y][ix]=="":
+                        c += 1
+                    elif board[y][ix].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                for ix in range(x+1,9):
+                    if board[y][ix]=="":
+                        c += 1
+                    elif board[y][ix].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                for iy in reversed(range(y)):
+                    if board[iy][x]=="":
+                        c += 1
+                    elif board[iy][x].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                for iy in range(y+1,9):
+                    if board[iy][x]=="":
+                        c += 1
+                    elif board[iy][x].isupper():
+                        break
+                    else:
+                        c += 1
+                        break
+                score_cp += c*9
             if square=="+r":
                 score_cp -= rook + silver
             if square=="+B":
                 score_cp += bishop + gold
             if square=="+b":
                 score_cp -= bishop + gold
+            x += 1
+        y += 1
+
     for p in mykomadai:
             if square=="k":
                 score_cp += king

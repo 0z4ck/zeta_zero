@@ -325,11 +325,13 @@ class Game:
                     calcboard[8-self.SFD[usimove[3]]][9-int(usimove[2])] = piece
                     calcboard[8-self.SFD[usimove[1]]][9-int(usimove[0])] = ""
             #okomadai = evaluation.getokomadai(calcboard,calckmd) 
-            okomadai = []
-            score = evaluation.evaluation(calcboard,calckmd,okomadai,turn="opponent")
+            score = evaluation.evaluation(calcboard,calckmd,self.okomadai,mv,turn="opponent")
             scoredmovelist.append((usimove,score))
-        bm = max(scoredmovelist,key=lambda x:x[1])[0]
 
-
+        print(scoredmovelist)
+        bm = max(scoredmovelist,key=lambda x:x[1])
+        bms = [usimv for usimv,sco in scoredmovelist if sco == bm[1]]
+        print(bms)
+        bm = random.choice(bms)
         print("bestmove {}".format(bm))
         #print("bestmove {}".format("resign"))
