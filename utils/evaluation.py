@@ -43,6 +43,14 @@ def evaluation(board,mykomadai,okomadai,turn=""):
                 score_cp += bishop
             if square=="b":
                 score_cp -= bishop
+            if square=="+R":
+                score_cp += rook + silver
+            if square=="+r":
+                score_cp -= rook + silver
+            if square=="+B":
+                score_cp += bishop + gold
+            if square=="+b":
+                score_cp -= bishop + gold
     for p in mykomadai:
             if square=="k":
                 score_cp += king

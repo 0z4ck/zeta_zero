@@ -37,6 +37,7 @@ def rawtousi(p, x1, x2, y1, y2, sente=True):
         ##print("p:{}, x1:{}, x2:{}, y1]{}, y2:{}".format(p, x1, x2, y1, y2))
         usimove = "{}{}{}{}".format(x1+1,sfeny[y1],x2+1,sfeny[y2])
     else:
+        print("x2: {}, y2: {}".format(x2,y2))
         usimove = "{}{}{}{}".format(9-x1,sfeny[8-y1],9-x2,sfeny[8-y2]) 
     return usimove
 

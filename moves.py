@@ -200,7 +200,31 @@ class Moves:
             move_list.append(moveleft)
 
             if dragon:
-                im = ((x+1,y+1),(x-1,y-1),(x+1,y-1),(x-1,y+1))
+                im = [(x+1,y+1),(x-1,y-1),(x+1,y-1),(x-1,y+1)]
+                if x=8:
+                    for i in ((x+1,y+1),(x+1,y-1)):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
+                if y=8:
+                    for i in ((x+1,y+1),(x-1,y+1)):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
+                if x=0:
+                    for i in ((x-1,y-1),(x-1,y+1)):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
+                if y=0:
+                    for i in (((x-1,y-1)),(x+1,y-1)):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
                 move_list.append(im)
             return move_list
 
@@ -223,7 +247,31 @@ class Moves:
                 move_list.append(movepart)
 
             if horse:
-                    im = ((x,y+1),(x,y-1),(x+1,y),(x-1,y))
-                    move_list.append(im)
+                im = ((x,y+1),(x,y-1),(x+1,y),(x-1,y))
+                if x=8:
+                    for i in ((x+1,y),):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
+                if y=8:
+                    for i in ((x,y+1),):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
+                if x=0:
+                    for i in ((x-1,y),):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
+                if y=0:
+                    for i in (((x,y-1)),):
+                        try:
+                            im.remove(i)
+                        except:
+                            pass
+                move_list.append(im)
             return move_list
 
