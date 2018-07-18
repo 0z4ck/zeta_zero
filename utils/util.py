@@ -405,10 +405,15 @@ def isMate(board,move_list,sente):
 
 
 def TsumiTansaku(board, move_list, sente, turn="me"):
+    outelst = []
     for move in move_list:
         rmove = usitoraw(board,move,sente)
         tboard = deepcopy(board)
-        tboard[rmove[3]][rmove[1]]=""
+        if rmove[3]!=None:
+            tboard[rmove[3]][rmove[1]]=""
         tboard[rmove[4]][rmove[2]]=rmove[0]
-        isCheck(tboard,turn)
-        return move 
+        if isCheck(tboard,turn):
+            outelst.append(move)
+    return outelst
+
+

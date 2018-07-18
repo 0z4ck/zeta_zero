@@ -295,6 +295,9 @@ class Game:
                 return
             else:
                 movelist = ismate[1]
+                bm = random.choice(movelist)
+                print("bestmove {}".format(bm))
+                return
 
         scoredmovelist=[]
         for usimove in movelist:
@@ -330,8 +333,15 @@ class Game:
 
         print(scoredmovelist)
         bm = max(scoredmovelist,key=lambda x:x[1])
-        bms = [usimv for usimv,sco in scoredmovelist if sco == bm[1]]
+        if bm[1]>4000:
+            bms = util.TsumiTansaku(self.board,movelist,self.sente,"me")
+            if bms==[]:
+                bms = [usimv for usimv,sco in scoredmovelist if sco == bm[1]]
+        else:
+            bms = [usimv for usimv,sco in scoredmovelist if sco == bm[1]]
         print(bms)
+       
         bm = random.choice(bms)
         print("bestmove {}".format(bm))
+
         #print("bestmove {}".format("resign"))
