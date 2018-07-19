@@ -12,7 +12,7 @@ while True:
         break
 
     elif command == "usi":
-        print("id name zetazero 0.0")
+        print("id name zetazero 1.0")
         print("id author by 0z4ck")
         print("option name BookFile type string default public.bin")
         print("option name UseBook type check default true")
