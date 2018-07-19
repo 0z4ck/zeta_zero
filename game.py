@@ -300,6 +300,7 @@ class Game:
                 return
 
         scoredmovelist=[]
+        nodes = 0
         for usimove in movelist:
             calcboard = copy.deepcopy(self.board)
             calckmd = copy.deepcopy(self.komadai)
@@ -329,9 +330,11 @@ class Game:
                     calcboard[8-self.SFD[usimove[1]]][9-int(usimove[0])] = ""
             #okomadai = evaluation.getokomadai(calcboard,calckmd) 
             score = evaluation.evaluation(calcboard,calckmd,self.okomadai,mv,turn="opponent")
+            nodes += 1
+            print("info time 1 depth 1 nodes {} score cp {} pv {}".format(nodes,score,usimove))
             scoredmovelist.append((usimove,score))
 
-        print(scoredmovelist)
+        #print(scoredmovelist)
         bm = max(scoredmovelist,key=lambda x:x[1])
         if bm[1]>4000:
             bms = util.TsumiTansaku(self.board,movelist,self.sente,"me")
