@@ -4,6 +4,7 @@ from utils import util
 import time
 import copy
 from utils import evaluation
+from utils import tansaku
 
 class Game:
 
@@ -176,7 +177,7 @@ class Game:
                 elif square=="R":
                     mlist = mv.rook(x,y)
                     mlist2 = []
-                    print(mlist)
+                    #print(mlist)
                     for mlpart in mlist[:4]:
                         for lx,ly in mlpart:
                             if self.board[ly][lx]=="":
@@ -198,7 +199,7 @@ class Game:
                 elif square=="B":
                     mlist = mv.bishop(x,y)
                     mlist2 = []
-                    print(mlist)
+                    #print(mlist)
                     for mlpart in mlist[:4]:
                         for lx,ly in mlpart:
                             if self.board[ly][lx]=="":
@@ -329,7 +330,8 @@ class Game:
                     calcboard[8-self.SFD[usimove[3]]][9-int(usimove[2])] = piece
                     calcboard[8-self.SFD[usimove[1]]][9-int(usimove[0])] = ""
             #okomadai = evaluation.getokomadai(calcboard,calckmd) 
-            score = evaluation.evaluation(calcboard,calckmd,self.okomadai,mv,turn="opponent")
+            #score = evaluation.evaluation(calcboard,calckmd,self.okomadai,mv,turn="opponent")
+            score = tansaku.minimax(calcboard,calckmd,self.okomadai,mv,2,1,self.sente)
             nodes += 1
             print("info time 1 depth 1 nodes {} score cp {} pv {}".format(nodes,score,usimove))
             scoredmovelist.append((usimove,score))

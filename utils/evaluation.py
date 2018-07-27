@@ -41,7 +41,7 @@ def evaluation(board,mykomadai,okomadai,mv,turn=""):
                 score_cp += rook
                 c = 0
                 for ix in reversed(range(x)):
-                    print("y: {}, len(board): {}, ix: {}, x: {}".format(y,len(board),ix,x))
+                    #print("y: {}, len(board): {}, ix: {}, x: {}".format(y,len(board),ix,x))
                     if board[y][ix]=="":
                         c += 1
                     elif board[y][ix].isupper():

@@ -37,7 +37,7 @@ def rawtousi(p, x1, x2, y1, y2, sente=True):
         ##print("p:{}, x1:{}, x2:{}, y1]{}, y2:{}".format(p, x1, x2, y1, y2))
         usimove = "{}{}{}{}".format(x1+1,sfeny[y1],x2+1,sfeny[y2])
     else:
-        print("x2: {}, y2: {}".format(x2,y2))
+        #print("x2: {}, y2: {}".format(x2,y2))
         usimove = "{}{}{}{}".format(9-x1,sfeny[8-y1],9-x2,sfeny[8-y2]) 
     return usimove
 
@@ -223,7 +223,7 @@ def isCheck(board,turn):
             elif board[klinen+i][kfilen-i] != "":
                 break
     elif turn=="me":
-        for linen in range(10):
+        for linen in range(9):
              if "k" in board[linen]:
                  kfilen = board[linen].index("k")
                  klinen = linen
@@ -374,19 +374,33 @@ def isThisDropLegal(board,move):
 
     return legal
 
-def isThisMoveLegal(board,move):
-    piece = move[0]
-    x1 = move[1]
-    x2 = move[2]
-    y1 = move[3]
-    y2 = move[4]
-    if x1 and y1:
-        board[y1][x1] = ""
-    board[y2][x2] = piece
-    legal = not isCheck(board,"opponent")
-    if not legal:
-        #print("{}{}{} is not legal".format(x2+1,y2+1,piece))
-        pass
+def isThisMoveLegal(board,move,me=True):
+    if me:
+        piece = move[0]
+        x1 = move[1]
+        x2 = move[2]
+        y1 = move[3]
+        y2 = move[4]
+        if x1 and y1:
+            board[y1][x1] = ""
+        board[y2][x2] = piece
+        legal = not isCheck(board,"opponent")
+        if not legal:
+            #print("{}{}{} is not legal".format(x2+1,y2+1,piece))
+            pass
+    else:
+        piece = move[0]
+        x1 = move[1]
+        x2 = move[2]
+        y1 = move[3]
+        y2 = move[4]
+        if x1 and y1:
+            board[y1][x1] = ""
+        board[y2][x2] = piece
+        legal = not isCheck(board,"me")
+        if not legal:
+            #print("{}{}{} is not legal".format(x2+1,y2+1,piece))
+            pass
 
     return legal
 
